@@ -1,4 +1,5 @@
 import os
+import logging
 import pandas as pd
 from download_data import guarantee_all_data
 
@@ -12,6 +13,7 @@ SG_UF = os.environ.get("SG_UF", "RS")
 
 
 def main():
+    set_log_level()
     guarantee_all_data()
 
     filename = os.environ.get("CSV_FILENAME", "dados/2021.csv")
@@ -40,6 +42,8 @@ def get_dataframe(filename, usecols=None):
     df = df.loc[df["NO_CURSO"] == NO_CURSO]
     return df
 
+def set_log_level():
+    logging.basicConfig(level=os.environ.get("PYTHON_LOG", "WARNING"))
 
 if __name__ == "__main__":
     main()

@@ -13,3 +13,4 @@ As seguintes variáveis de ambiente definem o programa.
 - `CSV_FILENAME` (default `2021.csv`): nome do arquivo (deve ser um microdado do CES do INEP)
 - `SG_UF` (default `RS`): sigla da UF
 - `NO_CURSO` (default `Arquitetura E Urbanismo`): nome do curso
+- `PYTHON_LOG` (default `WARNING`): define o [nível do log](https://docs.python.org/3/howto/logging.html#when-to-use-logging) do `logging` do python

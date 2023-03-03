@@ -1,5 +1,6 @@
 import os
 import requests
+import logging
 import io
 import zipfile
 import hashlib
@@ -16,6 +17,9 @@ class DataYear:
             raise ValueError
         self.year = year
 
+    def __str__(self):
+        return f"[{self.year} data]"
+
     def path(self):
         return f"dados/{self.year}.csv"
 
@@ -23,12 +27,20 @@ class DataYear:
         if os.path.exists(self.path()):
             correct = MD5_PER_YEAR[self.year]
             current = hashlib.md5(open(self.path(), "rb").read()).hexdigest()
-            return correct == current
-        return False
+            has_correct_hash = correct == current
+            if not has_correct_hash:
+                logging.debug(f"{self} file exists but has incorrect hash.")
+            return has_correct_hash
+        else:
+            logging.debug(f"{self} file does not exist")
+            return False
 
     def guarantee_data(self):
         if not self.data_exists():
+            logging.info(f"{self} downloading file...")
             self.download_data()
+        else:
+            logging.info(f"{self} file already exists, using it.")
 
     def download_data(self):
         # TODO: make it work without `verify=False`
@@ -44,6 +56,9 @@ class DataYear:
             with zip.open(path, mode="r") as csv_file:
                 with open(self.path(), "wb") as f:
                     f.write(csv_file.read())
+
+        logging.debug(f"{self} file successfully downloaded, checking hash...")
+        assert self.data_exists()
 
     def url(self):
         base = "https://download.inep.gov.br/microdados/"
