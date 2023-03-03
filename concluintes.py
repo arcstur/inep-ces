@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from download_data import guarantee_all_data
 
 QT_COLUMNS = ["QT_CONC", "QT_CONC_FEM", "QT_CONC_MASC"]
 FILTER_COLUMNS = [
@@ -11,7 +12,9 @@ SG_UF = os.environ.get("SG_UF", "RS")
 
 
 def main():
-    filename = os.environ.get("CSV_FILENAME", "2021.csv")
+    guarantee_all_data()
+
+    filename = os.environ.get("CSV_FILENAME", "dados/2021.csv")
     df = get_dataframe(filename)
 
     for year in df["NU_ANO_CENSO"].unique():
@@ -21,8 +24,6 @@ def main():
         }
         results = df_year.groupby("NU_ANO_CENSO").agg(agg_dict)
         print(results)
-
-    results.to_excel(f"concluintes.{NO_CURSO}.xlsx")
 
 
 def get_dataframe(filename, usecols=None):
