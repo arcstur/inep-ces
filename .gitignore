@@ -1,5 +1,8 @@
 # INEP data
 dados/
 
+# Output
+/output
+
 # Python stuff
 __pycache__

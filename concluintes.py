@@ -30,8 +30,9 @@ def main():
 
     dataframes = []
     for year in ALL_YEARS:
-        logging.info(f"[{year}] Analysing data")
-        df = get_dataframe(DataYear(year).path())
+        logging.info(f"[{year}] Opening")
+        path = DataYear(year).path()
+        df = get_dataframe(path)
         dataframes.append(df)
 
     df = pd.concat(dataframes)
@@ -42,6 +43,10 @@ def main():
     }
     results = df.groupby("NU_ANO_CENSO").agg(agg_dict)
     print(results)
+
+    logging.info("Saving results")
+    os.makedirs("output/", exist_ok=True)
+    results.to_csv(f"output/{NO_CURSO}.{SG_UF}.csv", sep=";")
 
 
 def get_dataframe(filename, usecols=None):
@@ -57,7 +62,6 @@ def get_dataframe(filename, usecols=None):
         usecols=usecols,
     )
 
-    logging.debug(f"Filter dataframe at {filename} by SG_UF and NO_CURSO")
     df = df.loc[df["SG_UF"] == SG_UF]
     df["NO_CURSO"] = df["NO_CURSO"].str.upper()
     df = df.loc[df["NO_CURSO"] == NO_CURSO]
