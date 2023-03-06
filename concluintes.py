@@ -1,12 +1,14 @@
 import os
 import logging
 import pandas as pd
+import matplotlib.pyplot as plt
 from download_data import guarantee_all_data, DataYear, ALL_YEARS
 
-QT_COLUMNS = [
-    "QT_CONC",
+SEX_COLUMNS = [
     "QT_CONC_FEM",
     "QT_CONC_MASC",
+]
+AGE_COLUMNS = [
     "QT_CONC_0_17",
     "QT_CONC_18_24",
     "QT_CONC_25_29",
@@ -16,12 +18,31 @@ QT_COLUMNS = [
     "QT_CONC_50_59",
     "QT_CONC_60_MAIS",
 ]
+COLOR_COLUMNS = [
+    "QT_CONC_BRANCA",
+    "QT_CONC_PRETA",
+    "QT_CONC_PARDA",
+    "QT_CONC_AMARELA",
+    "QT_CONC_INDIGENA",
+    "QT_CONC_CORND",
+]
+
+QT_COLUMNS = (
+    [
+        "QT_CONC",
+    ]
+    + SEX_COLUMNS
+    + AGE_COLUMNS
+    + COLOR_COLUMNS
+)
+
 FILTER_COLUMNS = [
     "SG_UF",
     "NO_CURSO",
 ]
 NO_CURSO = os.environ.get("NO_CURSO", "ARQUITETURA E URBANISMO")
 SG_UF = os.environ.get("SG_UF", "RS")
+PLOT_ACTION = os.environ.get("PLOT_ACTION", "EXPORT")
 
 
 def main():
@@ -42,11 +63,31 @@ def main():
         column: "sum" for column in QT_COLUMNS
     }
     results = df.groupby("NU_ANO_CENSO").agg(agg_dict)
-    print(results)
+    print(results[FILTER_COLUMNS + ["QT_CONC"]])
 
     logging.info("Saving results")
     os.makedirs("output/", exist_ok=True)
     results.to_csv(f"output/{NO_CURSO}.{SG_UF}.csv", sep=";")
+
+    make_plots(results)
+
+
+def make_plots(results):
+    logging.info("Creating graphs")
+    for i, columns in enumerate(
+        [
+            ["QT_CONC"],
+            SEX_COLUMNS,
+            AGE_COLUMNS,
+            COLOR_COLUMNS,
+        ]
+    ):
+        results[FILTER_COLUMNS + columns].plot()
+        match PLOT_ACTION.upper():
+            case "SHOW":
+                plt.show()
+            case "EXPORT":
+                plt.savefig(f"output/{NO_CURSO}.{SG_UF}.{i}.pdf")
 
 
 def get_dataframe(filename, usecols=None):
@@ -70,7 +111,7 @@ def get_dataframe(filename, usecols=None):
 
 
 def set_log_level():
-    logging.basicConfig(level=os.environ.get("PYTHON_LOG", "INFO"))
+    logging.basicConfig(level=os.environ.get("PYTHON_LOG", "INFO").upper())
 
 
 if __name__ == "__main__":

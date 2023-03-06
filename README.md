@@ -12,4 +12,5 @@ Baixe o arquivo dos microdados em um csv, configure as variáveis de ambiente, e
 As seguintes variáveis de ambiente definem o programa.
 - `NO_CURSO` (default `ARQUITETURA E URBANISMO`): nome do curso, em caixa alta.
 - `SG_UF` (default `RS`): sigla da UF
+- `PLOT_ACTION` (default `EXPORT`): ação a realizar com os gráficos: `EXPORT` os salva e `SHOW` os mostra.
 - `PYTHON_LOG` (default `INFO`): define o [nível do log](https://docs.python.org/3/howto/logging.html#when-to-use-logging) do `logging` do python
