@@ -35,7 +35,7 @@ class DataYear:
         return f"[{self.year} data]"
 
     def path(self):
-        return f"dados/{self.year}.csv"
+        return f"input/{self.year}.csv"
 
     def data_exists(self):
         if os.path.exists(self.path()):
