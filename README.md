@@ -3,9 +3,18 @@ Análise dos microdados do Censo da Educação Superior do INEP
 
 Por padrão a análise é feita para o curso de Arquitetura e Urbanismo, no estado do Rio Grande do Sul. Isso pode ser configurado com variáveis de ambiente.
 
+## Instalação
+
+Instale o [Python](https://www.python.org) e o [Poetry](https://python-poetry.org).
+
 ## Cálculo de concluintes por ano
 
-Baixe o arquivo dos microdados em um csv, configure as variáveis de ambiente, e rode o script `concluintes.py`
+Rode
+```bash
+poetry install
+poetry run python concluintes.py
+```
+Os resultados são salvos na pasta `output/`.
 
 ## Configuração
 
