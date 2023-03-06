@@ -3,7 +3,19 @@ import logging
 import pandas as pd
 from download_data import guarantee_all_data, DataYear, ALL_YEARS
 
-QT_COLUMNS = ["QT_CONC", "QT_CONC_FEM", "QT_CONC_MASC"]
+QT_COLUMNS = [
+    "QT_CONC",
+    "QT_CONC_FEM",
+    "QT_CONC_MASC",
+    "QT_CONC_0_17",
+    "QT_CONC_18_24",
+    "QT_CONC_25_29",
+    "QT_CONC_30_34",
+    "QT_CONC_35_39",
+    "QT_CONC_40_49",
+    "QT_CONC_50_59",
+    "QT_CONC_60_MAIS",
+]
 FILTER_COLUMNS = [
     "SG_UF",
     "NO_CURSO",
