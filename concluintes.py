@@ -70,7 +70,7 @@ def get_dataframe(filename, usecols=None):
 
 
 def set_log_level():
-    logging.basicConfig(level=os.environ.get("PYTHON_LOG", "WARNING"))
+    logging.basicConfig(level=os.environ.get("PYTHON_LOG", "INFO"))
 
 
 if __name__ == "__main__":
