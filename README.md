@@ -3,6 +3,12 @@ Análise dos microdados do Censo da Educação Superior do INEP
 
 Por padrão a análise é feita para o curso de Arquitetura e Urbanismo, no estado do Rio Grande do Sul. Isso pode ser configurado com variáveis de ambiente.
 
+## Dados
+
+Os dados podem ser acessados [aqui](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior). Porém, o programa faz o download deles automaticamente, então não é preciso baixá-los manualmente.
+
+Utilizam-se os dados a partir de 2009 por possuírem a mesma estrutura de colunas.
+
 ## Instalação
 
 Instale o [Python](https://www.python.org) e o [Poetry](https://python-poetry.org).
