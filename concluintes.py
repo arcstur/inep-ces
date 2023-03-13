@@ -41,7 +41,7 @@ FILTER_COLUMNS = [
     "NO_CURSO",
 ]
 NO_CURSO = os.environ.get("NO_CURSO", "ARQUITETURA E URBANISMO").upper()
-SG_UF = os.environ.get("SG_UF", "RS").upper()
+SG_UF = os.environ.get("SG_UF", "BR").upper()
 PLOT_ACTION = os.environ.get("PLOT_ACTION", "EXPORT").upper()
 
 
@@ -103,7 +103,8 @@ def get_dataframe(filename, usecols=None):
         usecols=usecols,
     )
 
-    df = df.loc[df["SG_UF"] == SG_UF]
+    if SG_UF != "BR":
+        df = df.loc[df["SG_UF"] == SG_UF]
     df["NO_CURSO"] = df["NO_CURSO"].str.upper()
     df = df.loc[df["NO_CURSO"] == NO_CURSO]
 

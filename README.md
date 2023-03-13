@@ -1,11 +1,12 @@
 # INEP-CES
 Análise dos microdados do Censo da Educação Superior do INEP
 
-Por padrão a análise é feita para o curso de Arquitetura e Urbanismo, no estado do Rio Grande do Sul. Isso pode ser configurado com variáveis de ambiente.
+Por padrão a análise é feita para o curso de Arquitetura e Urbanismo.
+Com variáveis de ambiente é possível configurar o curso e também se deseja filtrar por UF.
 
 ## Dados
 
-Os dados podem ser acessados [aqui](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior). Porém, o programa faz o download deles automaticamente, então não é preciso baixá-los manualmente.
+Os dados podem ser acessados [aqui](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior). O programa faz o download deles automaticamente.
 
 Utilizam-se os dados a partir de 2009 por possuírem a mesma estrutura de colunas.
 
@@ -26,6 +27,6 @@ Os resultados são salvos na pasta `output/`.
 
 As seguintes variáveis de ambiente definem o programa.
 - `NO_CURSO` (default `ARQUITETURA E URBANISMO`): nome do curso, em caixa alta.
-- `SG_UF` (default `RS`): sigla da UF
+- `SG_UF` (default `BR`): sigla da UF. Quando é `BR`, não filtra por UF.
 - `PLOT_ACTION` (default `EXPORT`): ação a realizar com os gráficos: `EXPORT` os salva e `SHOW` os mostra.
 - `PYTHON_LOG` (default `INFO`): define o [nível do log](https://docs.python.org/3/howto/logging.html#when-to-use-logging) do `logging` do python
