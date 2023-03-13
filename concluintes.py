@@ -40,9 +40,9 @@ FILTER_COLUMNS = [
     "SG_UF",
     "NO_CURSO",
 ]
-NO_CURSO = os.environ.get("NO_CURSO", "ARQUITETURA E URBANISMO")
-SG_UF = os.environ.get("SG_UF", "RS")
-PLOT_ACTION = os.environ.get("PLOT_ACTION", "EXPORT")
+NO_CURSO = os.environ.get("NO_CURSO", "ARQUITETURA E URBANISMO").upper()
+SG_UF = os.environ.get("SG_UF", "RS").upper()
+PLOT_ACTION = os.environ.get("PLOT_ACTION", "EXPORT").upper()
 
 
 def main():
@@ -83,7 +83,7 @@ def make_plots(results):
         ]
     ):
         results[FILTER_COLUMNS + columns].plot()
-        match PLOT_ACTION.upper():
+        match PLOT_ACTION:
             case "SHOW":
                 plt.show()
             case "EXPORT":
