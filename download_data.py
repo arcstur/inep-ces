@@ -75,7 +75,7 @@ class DataYear:
         assert self.data_exists()
 
     def url(self):
-        base = "https://download.inep.gov.br/microdados/"
+        base = "http://download.inep.gov.br/microdados/"
         filename = f"microdados_censo_da_educacao_superior_{self.year}.zip"
         return base + filename
 
@@ -83,3 +83,8 @@ class DataYear:
 def guarantee_all_data():
     for year in ALL_YEARS:
         DataYear(year).guarantee_data()
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level="DEBUG")
+    guarantee_all_data()

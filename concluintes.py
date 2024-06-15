@@ -57,19 +57,22 @@ def main():
         dataframes.append(df)
 
     df = pd.concat(dataframes)
+    print(df)
+    df.to_csv(f"output/{NO_CURSO}.{SG_UF}.csv", sep=";", index=False)
+    df.to_excel(f"output/inep-ces-arquitetura-{SG_UF}-desagregado.xlsx", index=False)
 
-    logging.debug("Calculating results")
-    agg_dict = {column: "first" for column in FILTER_COLUMNS} | {
-        column: "sum" for column in QT_COLUMNS
-    }
-    results = df.groupby("NU_ANO_CENSO").agg(agg_dict)
-    print(results[FILTER_COLUMNS + ["QT_CONC"]])
+    # logging.debug("Calculating results")
+    # agg_dict = {column: "first" for column in FILTER_COLUMNS} | {
+    #     column: "sum" for column in QT_COLUMNS
+    # }
+    # results = df.groupby("NU_ANO_CENSO").agg(agg_dict)
+    # print(results[FILTER_COLUMNS + ["QT_CONC"]])
 
-    logging.info("Saving results")
-    os.makedirs("output/", exist_ok=True)
-    results.to_csv(f"output/{NO_CURSO}.{SG_UF}.csv", sep=";")
+    # logging.info("Saving results")
+    # os.makedirs("output/", exist_ok=True)
+    # results.to_csv(f"output/{NO_CURSO}.{SG_UF}.csv", sep=";")
 
-    make_plots(results)
+    # make_plots(results)
 
 
 def make_plots(results):
@@ -91,7 +94,7 @@ def make_plots(results):
 
 
 def get_dataframe(filename, usecols=None):
-    usecols = ["NU_ANO_CENSO"] + FILTER_COLUMNS + QT_COLUMNS
+    # usecols = ["NU_ANO_CENSO"] + FILTER_COLUMNS + QT_COLUMNS
 
     logging.debug(f"Open dataframe at {filename}")
     df = pd.read_csv(
@@ -100,7 +103,6 @@ def get_dataframe(filename, usecols=None):
         encoding="ISO-8859-1",
         # otherwise it complains about columns having mixed types
         low_memory=False,
-        usecols=usecols,
     )
 
     if SG_UF != "BR":
